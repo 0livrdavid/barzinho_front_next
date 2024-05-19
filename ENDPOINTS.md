@@ -35,6 +35,7 @@
     ```json
     {
       "success": true,
+      "message": "Produtos listados com sucesso",
       "data": [
         {
           "product_id": 1,
@@ -79,6 +80,7 @@
     ```json
     {
       "success": true,
+      "message": "Vendas listadas com sucesso",
       "data": [
         {
           "sale_id": 1,
@@ -139,6 +141,7 @@
     ```json
     {
       "success": true,
+      "message": "Usuários listados com sucesso",
       "data": [
         {
           "user_id": 1,
