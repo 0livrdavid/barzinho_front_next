@@ -1,68 +1,67 @@
 'use client'
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-import getUsers from '@/server/axios/users/get_users';
-import { UserData } from '@/server/interface/users';
-
 import { useEffect, useState } from 'react';
+import { User } from '@/api/interfaces/users/post_users';
+import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import getUsers from '@/api/axios/users/get_users';
 
 export default function TableUsers() {
-  const [rows, setRows] = useState<UserData[]>([]);
+  const [rows, setRows] = useState<User[]>([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getUsers().then(data => {
-      const newRows = data.map(user => ({
-				nome: user.nome,
-				idade: user.idade,
-				valor_reservado: user.valor_reservado, 
-				numero: user.numero,
-				user_id: user.user_id 
-			}));
-			setRows(newRows);
-    }).catch(error => {
-      console.error('Error fetching users:', error);
-    });
+    const fetchGetUsers = async () => {
+      try {
+        setError("");
+        const users = await getUsers();
+        setRows(users.data as User[]);
+        setError(users.msg);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setError(`Erro ao listar usuários: ${error}`);
+      }
+    };
+
+    fetchGetUsers();
   }, []);
 
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell>Idade</TableCell>
-              <TableCell>Número</TableCell>
-              <TableCell>User ID</TableCell>
-              <TableCell align="right">Valor Reservado</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.nome}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.nome}
-                </TableCell>
-                <TableCell align="right">{row.idade}</TableCell>
-                <TableCell align="right">{row.numero}</TableCell>
-                <TableCell align="right">{row.user_id}</TableCell>
-                <TableCell align="right">{row.valor_reservado}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+    <div>
+      {error && <div>{error}</div>}
+      <Table>
+      <TableCaption>Listagem de Usuários</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">#</TableHead>
+          <TableHead>Nome</TableHead>
+          <TableHead>Idade</TableHead>
+          <TableHead>Número</TableHead>
+          <TableHead>Valor Reservado</TableHead>
+          <TableHead className="text-right">Ações</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((row, index) => (
+          <TableRow key={index}>
+            <TableCell className="font-medium">{row.id}</TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.age}</TableCell>
+            <TableCell>{row.number}</TableCell>
+            <TableCell className="text-right">{row.valor_reservado_caixa}</TableCell>
+            <TableCell>Ações</TableCell>
+          </TableRow>
+        ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
-

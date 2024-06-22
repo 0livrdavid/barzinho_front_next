@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Sidebar from "@/components/layout/sidebar";
-import Body from "@/components/layout/body";
+import "@/styles/globals.css";
+import React from "react";
+import { ThemeProvider } from "@/components/theme-provider"
+import { Inter as FontSans } from "next/font/google"
 
-const inter = Inter({ subsets: ["latin"] });
+import { cn } from "@/lib/utils"
+ 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 export const metadata: Metadata = {
-  title: "Barzinho App",
-  description: "Barzinho app",
+  title: "Home",
 };
 
 export default function RootLayout({
@@ -17,11 +21,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${inter.className} flex h-screen`}>
-        <Sidebar />
-        <Body>{children}</Body>
-      </body>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${cn(
+          "min-h-screen font-sans antialiased",
+          fontSans.variable
+        )} flex h-screen`}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+          <div className="flex flex-row w-full h-full flex-1 p-4 gap-4">
+            {children}
+          </div>
+        </ThemeProvider>
+      </body>      
     </html>
   );
 }

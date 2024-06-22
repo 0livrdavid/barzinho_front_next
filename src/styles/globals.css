@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --fiord-50: hsl(220, 6%, 95%);
+    --fiord-75: hsl(220, 6%, 93%);
+    --fiord-100: hsl(220, 6%, 90%);
+    --fiord-150: hsl(220, 6%, 87%);
+    --fiord-200: hsl(220, 6%, 82%);
+    --fiord-250: hsl(220, 6%, 77%);
+    --fiord-300: hsl(220, 6%, 70%);
+    --fiord-350: hsl(220, 6%, 65%);
+    --fiord-400: hsl(220, 6%, 60%);
+    --fiord-450: hsl(220, 6%, 55%);
+    --fiord-500: hsl(220, 6%, 50%);
+    --fiord-550: hsl(220, 6%, 45%);
+    --fiord-600: hsl(220, 6%, 40%);
+    --fiord-650: hsl(220, 6%, 35%);
+    --fiord-700: hsl(220, 6%, 30%);
+    --fiord-750: hsl(220, 6%, 24%);
+    --fiord-800: hsl(220, 6%, 17%);
+    --fiord-850: hsl(220, 6%, 11%);
+    --fiord-900: hsl(220, 6%, 8%);
+    --fiord-950: hsl(220, 6%, 5%);
+    --fiord-1000: hsl(220, 6%, 1%);
+
+    --body-background: var(--fiord-50);
+    --body-foreground: var(--fiord-1000);
+    
+    --background: var(--fiord-50);
+    --foreground: var(--fiord-1000);
+
+    --primary: var(--fiord-900);
+    --primary-foreground: var(--fiord-50);
+
+    --secondary: var(--fiord-300);
+    --secondary-foreground: var(--fiord-950);
+
+    --destructive: hsl(0, 60%, 50%);
+    --destructive-foreground: var(--fiord-50);
+
+    --ghost-background: transparent;
+    --ghost-foreground: var(--fiord-500);
+
+    --link: var(--fiord-500);
+    --link-hover: var(--fiord-400);
+
+    --border: var(--fiord-600);
+    --input: var(--fiord-200);
+    --ring: var(--fiord-800);
+    --text: var(--fiord-1000);
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --fiord-50: hsl(220, 6%, 95%);
+    --fiord-75: hsl(220, 6%, 93%);
+    --fiord-100: hsl(220, 6%, 90%);
+    --fiord-150: hsl(220, 6%, 87%);
+    --fiord-200: hsl(220, 6%, 82%);
+    --fiord-250: hsl(220, 6%, 77%);
+    --fiord-300: hsl(220, 6%, 70%);
+    --fiord-350: hsl(220, 6%, 65%);
+    --fiord-400: hsl(220, 6%, 60%);
+    --fiord-450: hsl(220, 6%, 55%);
+    --fiord-500: hsl(220, 6%, 50%);
+    --fiord-550: hsl(220, 6%, 45%);
+    --fiord-600: hsl(220, 6%, 40%);
+    --fiord-650: hsl(220, 6%, 35%);
+    --fiord-700: hsl(220, 6%, 30%);
+    --fiord-750: hsl(220, 6%, 24%);
+    --fiord-800: hsl(220, 6%, 17%);
+    --fiord-850: hsl(220, 6%, 11%);
+    --fiord-900: hsl(220, 6%, 8%);
+    --fiord-950: hsl(220, 6%, 5%);
+    --fiord-1000: hsl(220, 6%, 1%);
+
+    --body-background: var(--fiord-850);
+    --body-foreground: var(--fiord-50);
+    
+    --background: var(--fiord-900);
+    --foreground: var(--fiord-50);
+
+    --primary: var(--fiord-50);
+    --primary-foreground: var(--fiord-900);
+
+    --secondary: var(--fiord-300);
+    --secondary-foreground: var(--fiord-950);
+
+    --destructive: hsl(0, 60%, 50%);
+    --destructive-foreground: var(--fiord-50);
+
+    --ghost-background: transparent;
+    --ghost-foreground: var(--fiord-500);
+
+    --link: var(--fiord-500);
+    --link-hover: var(--fiord-400);
+
+    --border: var(--fiord-600);
+    --input: var(--fiord-200);
+    --ring: var(--fiord-800);
+    --text: var(--fiord-50);
+  }
+}
+@layer components {
+  .bg-body-background {
+    background-color: var(--body-background);
+  }
+  .text-body-foreground {
+    color: var(--body-foreground);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--body-background);
+    color: var(--body-foreground);
+  }
+}
+

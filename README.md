@@ -17,7 +17,11 @@ Este documento descreve as funcionalidades, requisitos e interfaces do frontend 
 - [ ] Edição de usuários
 - [ ] Listagem de usuários
 - [ ] Exclusão de usuários
-- [ ] Geração de relatórios
+- [ ] Geração de relatórios, incluindo:
+  - [ ] Relatório do usuário que mais gastou
+  - [ ] Relatório do produto mais comprado
+  - [ ] Relatório de vendas por período
+  - [ ] Relatório de produtos com maior margem de lucro
 
 ## Requisitos Funcionais
 
