@@ -3,16 +3,19 @@
 import React from 'react';
 import { getToken, removeToken } from '@/api/axios/users/token';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import signout from '@/api/axios/users/signout';
 import { useLoading } from '@rest-hooks/hooks';
 import { SignoutResponse } from '@/api/interfaces/users/signout';
-
+import { useDashboardState } from '@/app/dashboard/_context';
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import Spinner from 'react-bootstrap/Spinner';
 
 export default function Header() {
   const router = useRouter();
+  const { activePage } = useDashboardState();
+  const [namePage, setNamePage] = useState('');
   let userName = JSON.parse(localStorage.getItem('user') || '{}').name || 'Nome Usuário';
 
   const [handleSignOut, isLoadingSignOut] = useLoading(async () => {
@@ -30,9 +33,30 @@ export default function Header() {
       router.push('/');
   });
 
+  useEffect(() => {
+    let pageName;
+    switch (activePage) {
+      case 'sales':
+        pageName = "Vendas";
+        break;
+      case 'users':
+        pageName = "Usuários";
+        break;
+      case 'products':
+        pageName = "Produtos";
+        break;
+      case 'reports':
+        pageName = "Relatórios";
+        break;
+      default:
+        pageName = "Dashboard";
+    }
+    setNamePage(pageName);
+  }, [activePage]);  
+
   return (
     <div className="flex flex-row justify-between items-center p-8 h-4 w-full rounded-lg border border-border bg-background">
-        <h1 className="text-2xl font-bold">Barzinho App</h1>
+        <h1 className="text-2xl font-bold">{namePage}</h1>
         <div className="flex flex-row gap-4 items-center">
           <p>{userName}</p>
           <ModeToggle/>
