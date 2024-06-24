@@ -19,13 +19,9 @@ import { useLoading } from "@rest-hooks/hooks";
 import deleteUser from '@/api/axios/users/delete_users';
 import { DeleteUserResponse } from '@/api/interfaces/users/delete_users';
 
-type GetUsersKeys = keyof GetUsers;
-
-export default function TableUsers({ searchField }: { searchField: GetUsersKeys }) {
+export default function TableUsers() {
   const [rows, setRows] = useState<GetUsers[]>([]);
   const [error, setError] = useState("");
-  const [sortField, setSortField] = useState<GetUsersKeys>(searchField);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const [handleDeleteUser, isLoadingDeleteUser] = useLoading(async (userId: string) => {
     setError("");
@@ -45,9 +41,7 @@ export default function TableUsers({ searchField }: { searchField: GetUsersKeys 
       if (!users.success) {
         setError(users.message);
       } else {
-        setError("");
         setRows(users.data as GetUsers[]);
-        sortRows(searchField, 'asc');
       }
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -57,11 +51,7 @@ export default function TableUsers({ searchField }: { searchField: GetUsersKeys 
 
   useEffect(() => {
     fetchGetUsers();
-  }, []);
-
-  useEffect(() => {
-    sortRows(sortField, sortOrder);
-  }, [sortField, sortOrder]);
+  }, [setRows]);
 
   const handleUpdateUser = (updatedUser: PutUserTable) => {
     setRows((prevRows) => {
@@ -72,23 +62,6 @@ export default function TableUsers({ searchField }: { searchField: GetUsersKeys 
     });
   };
 
-  const sortRows = (field: GetUsersKeys, order: 'asc' | 'desc') => {
-    const sortedRows = [...rows].sort((a, b) => {
-      const aValue = a[field] ?? '';
-      const bValue = b[field] ?? '';
-      if (aValue < bValue) return order === 'asc' ? -1 : 1;
-      if (aValue > bValue) return order === 'asc' ? 1 : -1;
-      return 0;
-    });
-    setRows(sortedRows);
-  };
-
-  const handleSort = (field: GetUsersKeys) => {
-    const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
-    setSortField(field);
-    setSortOrder(order);
-  };
-
   return (
     <div>
       {error && <div>{error}</div>}
@@ -96,12 +69,12 @@ export default function TableUsers({ searchField }: { searchField: GetUsersKeys 
         <TableCaption>Listagem de Usuários</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]" onClick={() => handleSort('id')}>#</TableHead>
-            <TableHead onClick={() => handleSort('name')}>Nome</TableHead>
-            <TableHead onClick={() => handleSort('age')}>Idade</TableHead>
-            <TableHead onClick={() => handleSort('number')}>Número</TableHead>
-            <TableHead onClick={() => handleSort('valor_reservado_caixa')}>Valor Reservado</TableHead>
-            <TableHead onClick={() => handleSort('deleted_at')}>Data Deletado</TableHead>
+            <TableHead className="w-[100px]">#</TableHead>
+            <TableHead>Nome</TableHead>
+            <TableHead>Idade</TableHead>
+            <TableHead>Nmero</TableHead>
+            <TableHead>Valor Reservado</TableHead>
+            <TableHead>Data Deletado</TableHead>
             <TableHead className="text-right">Ações</TableHead>
           </TableRow>
         </TableHeader>
@@ -126,5 +99,7 @@ export default function TableUsers({ searchField }: { searchField: GetUsersKeys 
         </TableBody>
       </Table>
     </div>
+
+    
   );
 }
