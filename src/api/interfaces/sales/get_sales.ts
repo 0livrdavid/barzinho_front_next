@@ -1,4 +1,4 @@
-export interface User {
+export interface Sale {
     id: string;
     name: string;
     number: string;
@@ -6,6 +6,6 @@ export interface User {
     valor_reservado_caixa: number;
 }
 
-export interface GetUsers {
-    data: User[];
+export interface GetSales {
+    data: Sale[];
 }

@@ -32,7 +32,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
         >
-          <div className="flex flex-row w-full h-full flex-1 p-4 gap-4">
+          <div className="flex flex-row w-full h-full flex-1 p-2 gap-4">
             {children}
           </div>
         </ThemeProvider>

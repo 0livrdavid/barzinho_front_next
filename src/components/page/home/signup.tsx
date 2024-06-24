@@ -33,20 +33,21 @@ export default function Signup({
     try {
       const result = await postUsers({
         name: name,
-        age: age,
         number: number,
+        password_hash: "123456",
+        age: age,
         valor_reservado_caixa: 0,
-        password_hash: "password_hash"
       });
   
       if (!result || !result.success) {
-        setError(result.msg);
+        setError(result.message);
+      } else {
+        setSign(true);
       }
     } catch (error) {
       setError(`Um erro ocorreu durante o cadastro: ${error}`);
     }
 
-    setSign(true);
   })
 
   return (
@@ -65,7 +66,7 @@ export default function Signup({
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="age">Idade</Label>
-                <Input id="age" type="number" min={16} max={35} defaultValue={age} required value={age} onChange={(e) => setAge(e.target.value)} />
+                <Input id="age" type="number" min={16} max={35} defaultValue={age} required value={age} onChange={(e) => setAge(Number(e.target.value))} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="number">Telefone</Label>

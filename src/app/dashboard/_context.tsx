@@ -10,7 +10,7 @@ interface DashboardStateContextProps {
 const DashboardStateContext = createContext<DashboardStateContextProps | undefined>(undefined);
 
 export const DashboardStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [activePage, setActivePage] = useState('home');
+  const [activePage, setActivePage] = useState('reports');
 
   return (
     <DashboardStateContext.Provider value={{ activePage, setActivePage }}>

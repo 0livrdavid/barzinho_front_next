@@ -1,4 +1,4 @@
-export interface User {
+export interface Sale {
     id: string;
     name: string;
     number: string;
@@ -7,10 +7,10 @@ export interface User {
     password_hash: string;
 }
 
-export type PostUser = Omit<User, 'id'>;
+export type PostSale = Omit<Sale, 'id'>;
 
-export interface PostUserResponse {
+export interface PostSaleResponse {
     success: boolean;
     msg: string;
-    data: User;
+    data: Sale;
 }
