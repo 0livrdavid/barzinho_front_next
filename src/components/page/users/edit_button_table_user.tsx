@@ -12,12 +12,12 @@ import { Input as InputMask } from "@/components/input-mask";
 import { FC } from "react";
 import { PutUserTable } from '@/api/interfaces/users/put_users';
 
-interface EditButtonTableProps {
+interface EditButtonTableUserProps {
   user: PutUserTable;
   onUpdate: (updatedUser: PutUserTable) => void;
 }
 
-const EditButtonTable: FC<EditButtonTableProps> = ({ user, onUpdate }) => {
+const EditButtonTableUser: FC<EditButtonTableUserProps> = ({ user, onUpdate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState("");
   const [name, setName] = useState(user.name);
@@ -55,7 +55,7 @@ const EditButtonTable: FC<EditButtonTableProps> = ({ user, onUpdate }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">Editar</Button>
+        <p>Editar</p>
       </DialogTrigger>
       <DialogContent className="md:max-w-lg">
         <DialogHeader>
@@ -113,4 +113,4 @@ const EditButtonTable: FC<EditButtonTableProps> = ({ user, onUpdate }) => {
   );
 };
 
-export default EditButtonTable;
+export default EditButtonTableUser;
